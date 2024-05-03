@@ -43,6 +43,7 @@ class Cache:
         """
         @wraps(fn)
         def wrapper(self, *args, **kwargs):
+            """ Wrapper function for the decorated function """
             key = self.__class__.__qualname__ + '.' + fn.__name__
             self._redis.incr(key)
             return fn(self, *args, **kwargs)
