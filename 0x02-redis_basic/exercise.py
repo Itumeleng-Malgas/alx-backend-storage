@@ -36,6 +36,6 @@ class Cache:
         """ Retrieves a string value from the cache. """
         return self.get(key, lambda x: x.decode('utf-8'))
 
-    def get_int(self, key: str):
+    def get_int(self, key: str) -> int:
         """ Retrieves an integer value from the cache. """
         data = self
