@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ Writing strings to Redis """
 
-from typing import Union, Optional
+from typing import Union
 import redis
 import uuid
 
@@ -36,6 +36,6 @@ class Cache:
         """ Retrieves a string value from the cache. """
         return self.get(key, lambda x: x.decode('utf-8'))
 
-    def get_int(self, key: str) -> Optional[int]:
+    def get_int(self, key: str):
         """ Retrieves an integer value from the cache. """
-        return self.get(key, int)
+        data = self
