@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ Writing strings to Redis """
 
-from typing import Union
+from typing import Union, Optional
 import redis
 import uuid
 
