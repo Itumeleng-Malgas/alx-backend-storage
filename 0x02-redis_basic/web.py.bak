@@ -3,13 +3,16 @@
 import redis
 import requests
 from datetime import timedelta
+from functools import wraps
+from typing import Callable
 
 
-def cache_and_track(func):
+def cache_and_track(func: Callable) -> Callable:
     """Decorator to cache function results and track URL accesses."""
-    def wrapper(url):
+    @wraps(func)
+    def wrapper(url: str) -> str:
         if url is None or len(url.strip()) == 0:
-            return ''
+            return ""
         redis_store = redis.Redis()
         res_key = f"result:{url}"
         req_key = f"count:{url}"
@@ -24,12 +27,7 @@ def cache_and_track(func):
 
 
 @cache_and_track
-def get_page(url):
+def get_page(url: str) -> str:
     """Returns the content of a URL after caching the request's response,
     and tracking the request."""
     return requests.get(url).content.decode("utf-8")
-
-if __name__ == "__main__":
-    url = "http://slowwly.robertomurray.co.uk/delay/1000/url/https://www.example.com"
-    print(get_page(url))
-    print(get_page(url))
