@@ -2,14 +2,13 @@
 """A module with tools for request caching and tracking."""
 import redis
 import requests
+from typing import Callable
 from datetime import timedelta
-from functools import wraps
 
 
-def cache_and_track(func):
+def cache_and_track(func: Callable[[str], str]) -> Callable[[str], str]:
     """Decorator to cache function results and track URL accesses."""
-    @wraps(func)
-    def wrapper(url):
+    def wrapper(url: str) -> str
         if url is None or len(url.strip()) == 0:
             return ''
         redis_store = redis.Redis()
@@ -26,7 +25,7 @@ def cache_and_track(func):
 
 
 @cache_and_track
-def get_page(url):
+def get_page(url: str) -> str
     """Returns the content of a URL after caching the request's response,
     and tracking the request."""
     return requests.get(url).content.decode("utf-8")
