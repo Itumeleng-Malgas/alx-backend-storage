@@ -3,6 +3,7 @@
 import redis
 import requests
 from datetime import timedelta
+from typing import Callable
 
 
 def cache_and_track(func: Callable[[str], str]) -> Callable[[str], str]:
