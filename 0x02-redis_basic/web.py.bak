@@ -3,12 +3,9 @@
 import redis
 import requests
 from datetime import timedelta
-from functools import wraps
-
 
 def cache_and_track(func):
     """Decorator to cache function results and track URL accesses."""
-    @wraps(func)
     def wrapper(url):
         if url is None or len(url.strip()) == 0:
             return ''
@@ -23,7 +20,6 @@ def cache_and_track(func):
         redis_store.setex(res_key, timedelta(seconds=10), result)
         return result
     return wrapper
-
 
 @cache_and_track
 def get_page(url):
